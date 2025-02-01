@@ -29,7 +29,7 @@ function preload() {
     console.log("Загрузка ассетов...");
     this.load.image('bird', 'bird.png');
     this.load.image('pipe', 'pipe.png');
-    this.load.image('background', 'background.jpg');
+    this.load.image('background', 'background.png');
 }
 
 function create() {
