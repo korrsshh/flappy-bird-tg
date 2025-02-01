@@ -13,8 +13,8 @@ document.body.style.background = '#70c5ce';
 // Подключаем Phaser
 const config = {
     type: Phaser.AUTO,
-    width: 320,
-    height: 480,
+    width: 640,
+    height: 960,
     parent: 'gameContainer',
     physics: {
         default: 'arcade',
@@ -35,7 +35,7 @@ function preload() {
 function create() {
     this.add.image(160, 240, 'background').setScale(0.5); // Уменьшаем фон
 
-    this.bird = this.physics.add.sprite(50, 150, 'bird').setOrigin(0.5, 0.5).setScale(0.3);
+    this.bird = this.physics.add.sprite(50, 150, 'bird').setOrigin(0.5, 0.5).setScale(0.2);
     this.bird.setCollideWorldBounds(true);
     
     this.input.on('pointerdown', () => this.bird.setVelocityY(-300));
@@ -52,7 +52,7 @@ function create() {
 function addPipe() {
     const gap = Phaser.Math.Between(120, 200); // Сделаем более удобный разрыв
 
-    const topPipe = this.pipes.create(320, gap - 200, 'pipe').setOrigin(0.5, 1).setScale(0.5);
+    const topPipe = this.pipes.create(320, gap - 200, 'pipe').setOrigin(0.5, 1).setScale(0.3);
     const bottomPipe = this.pipes.create(320, gap + 200, 'pipe').setOrigin(0.5, 0).setScale(0.5);
 
    
