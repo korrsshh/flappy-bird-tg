@@ -1,6 +1,12 @@
+console.log("game.js загружен!");
+
 // Подключаем Telegram Web Apps API
-//const tg = window.Telegram.WebApp;
-//tg.expand(); // Разворачиваем приложение на весь экран
+if (window.Telegram && window.Telegram.WebApp) {
+    const tg = window.Telegram.WebApp;
+    tg.expand();
+} else {
+    console.warn("Telegram WebApp API не найден. Запускаем в браузере.");
+}
 
 document.body.style.background = '#70c5ce';
 
@@ -9,6 +15,7 @@ const config = {
     type: Phaser.AUTO,
     width: 320,
     height: 480,
+    parent: 'gameContainer',
     physics: {
         default: 'arcade',
         arcade: { gravity: { y: 1000 }, debug: false }
@@ -19,12 +26,14 @@ const config = {
 const game = new Phaser.Game(config);
 
 function preload() {
+    console.log("Загрузка ассетов...");
     this.load.image('bird', 'bird.png');
     this.load.image('pipe', 'pipe.png');
-    this.load.image('background', 'background.jpg');
+    this.load.image('background', 'background.png');
 }
 
 function create() {
+    console.log("Игра запущена!");
     this.add.image(160, 240, 'background');
     
     this.bird = this.physics.add.sprite(50, 150, 'bird').setOrigin(0.5, 0.5);
@@ -67,6 +76,7 @@ function update() {
 }
 
 function gameOver() {
-    tg.showAlert('Игра окончена! Ваш счет: ' + this.score);
+    console.log("Игра окончена! Ваш счет: " + this.score);
+    alert('Игра окончена! Ваш счет: ' + this.score);
     this.scene.restart();
 }
