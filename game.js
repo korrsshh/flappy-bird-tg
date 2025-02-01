@@ -52,8 +52,8 @@ function create() {
 function addPipe() {
     const gap = Phaser.Math.Between(120, 200); // Сделаем более удобный разрыв
 
-    const topPipe = this.pipes.create(320, gap - 200, 'pipe').setOrigin(0.5, 1).setScale(0.3);
-    const bottomPipe = this.pipes.create(320, gap + 200, 'pipe').setOrigin(0.5, 0).setScale(0.5);
+    const topPipe = this.pipes.create(320, gap - 300, 'pipe').setOrigin(0.5, 1).setScale(0.3);
+    const bottomPipe = this.pipes.create(320, gap + 300, 'pipe').setOrigin(0.5, 0).setScale(0.5);
 
    
     
