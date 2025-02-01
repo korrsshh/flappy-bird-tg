@@ -1,6 +1,6 @@
 // Подключаем Telegram Web Apps API
-const tg = window.Telegram.WebApp;
-tg.expand(); // Разворачиваем приложение на весь экран
+//const tg = window.Telegram.WebApp;
+//tg.expand(); // Разворачиваем приложение на весь экран
 
 document.body.style.background = '#70c5ce';
 
