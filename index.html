@@ -7,15 +7,20 @@
     <script src="https://cdn.jsdelivr.net/npm/phaser@3.55.2/dist/phaser.js"></script>
     <script src="game.js" defer></script>
     <style>
-        body { margin: 0; overflow: hidden; background: #70c5ce; }
+        body { margin: 0; overflow: hidden; background: #70c5ce; display: flex; justify-content: center; align-items: center; height: 100vh; }
+        #gameContainer { width: 320px; height: 480px; }
         canvas { display: block; }
     </style>
 </head>
 <body>
+    <div id="gameContainer"></div>
     <script>
-        const tg = window.Telegram.WebApp;
-        tg.expand();
+        if (window.Telegram && window.Telegram.WebApp) {
+            const tg = window.Telegram.WebApp;
+            tg.expand();
+        } else {
+            console.warn("Telegram WebApp API не найден. Запускаем в браузере.");
+        }
     </script>
 </body>
 </html>
-
