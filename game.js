@@ -33,11 +33,11 @@ function preload() {
 }
 
 function create() {
-    console.log("Игра запущена!");
-    this.add.image(160, 240, 'background');
-    
-    this.bird = this.physics.add.sprite(50, 150, 'bird').setOrigin(0.5, 0.5);
+    this.add.image(160, 240, 'background').setScale(0.5); // Уменьшаем фон
+
+    this.bird = this.physics.add.sprite(50, 150, 'bird').setOrigin(0.5, 0.5).setScale(0.3);
     this.bird.setCollideWorldBounds(true);
+    
     this.input.on('pointerdown', () => this.bird.setVelocityY(-300));
     
     this.pipes = this.physics.add.group();
@@ -50,9 +50,12 @@ function create() {
 }
 
 function addPipe() {
-    const gap = Phaser.Math.Between(100, 200);
-    const topPipe = this.pipes.create(320, gap - 150, 'pipe').setOrigin(0.5, 1);
-    const bottomPipe = this.pipes.create(320, gap + 150, 'pipe').setOrigin(0.5, 0);
+    const gap = Phaser.Math.Between(120, 200); // Сделаем более удобный разрыв
+
+    const topPipe = this.pipes.create(320, gap - 200, 'pipe').setOrigin(0.5, 1).setScale(0.5);
+    const bottomPipe = this.pipes.create(320, gap + 200, 'pipe').setOrigin(0.5, 0).setScale(0.5);
+
+   
     
     topPipe.setVelocityX(-200);
     bottomPipe.setVelocityX(-200);
