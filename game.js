@@ -36,7 +36,7 @@ function create() {
     console.log("Игра запущена!");
     this.cameras.main.setZoom(0.8); // Ещё сильнее отдаляем камеру
     this.cameras.main.scrollY = 100; // Опускаем камеру ниже
-    this.add.image(300, 400, 'background').setScale(0.8); // Поднимаем фон выше и уменьшаем
+    this.add.image(300, 500, 'background').setScale(0.8); // Поднимаем фон выше и уменьшаем
     
     this.bird = this.physics.add.sprite(100, 450, 'bird').setOrigin(0.5, 0.5).setScale(0.2);
     this.bird.setCollideWorldBounds(true);
@@ -55,7 +55,7 @@ function create() {
 
 function addPipe() {
     const gap = Phaser.Math.Between(350, 450); // Смещаем разрыв вниз для баланса
-    const pipeHeight = 400; // Делаем трубы чуть короче
+    const pipeHeight = 500; // Делаем трубы чуть короче
     
     const topPipe = this.pipes.create(600, gap - pipeHeight / 2 - 50, 'pipe') // Смещаем верхнюю трубу вниз
         .setOrigin(0.5, 1)
