@@ -54,17 +54,17 @@ function create() {
 }
 
 function addPipe() {
-    const gap = Phaser.Math.Between(300, 400); // Увеличиваем разрыв между трубами
-    const pipeHeight = 500;
+    const gap = Phaser.Math.Between(350, 450); // Смещаем разрыв вниз для баланса
+    const pipeHeight = 400; // Делаем трубы чуть короче
     
-    const topPipe = this.pipes.create(600, gap - pipeHeight / 2 - 100, 'pipe') // Поднимаем верхнюю трубу выше
+    const topPipe = this.pipes.create(600, gap - pipeHeight / 2 - 50, 'pipe') // Смещаем верхнюю трубу вниз
         .setOrigin(0.5, 1)
         .setScale(0.3)
         .setFlipY(true)
         .setImmovable(true)
         .setVelocityX(-250);
     
-    const bottomPipe = this.pipes.create(600, gap + pipeHeight / 2, 'pipe')
+    const bottomPipe = this.pipes.create(600, gap + pipeHeight / 2 + 50, 'pipe') // Смещаем нижнюю трубу выше
         .setOrigin(0.5, 0)
         .setScale(0.3)
         .setImmovable(true)
@@ -72,16 +72,27 @@ function addPipe() {
     
     topPipe.body.setSize(topPipe.width * 0.8, topPipe.height * 0.8);
     bottomPipe.body.setSize(bottomPipe.width * 0.8, bottomPipe.height * 0.8);
+    
+    // Добавляем счет за пролет трубы
+    topPipe.passed = false;
 }
 
 function update() {
     if (this.bird.y > 900 || this.bird.y < 0) {
         gameOver.call(this);
     }
+    
+    this.pipes.getChildren().forEach(pipe => {
+        if (!pipe.passed && pipe.x < this.bird.x) {
+            pipe.passed = true;
+            this.score += 0.5; // Каждая пара труб даёт 1 очко (по 0.5 за каждую)
+            this.scoreText.setText('Счет: ' + Math.floor(this.score));
+        }
+    });
 }
 
 function gameOver() {
-    console.log("Игра окончена! Ваш счет: " + this.score);
-    alert('Игра окончена! Ваш счет: ' + this.score);
+    console.log("Игра окончена! Ваш счет: " + Math.floor(this.score));
+    alert('Игра окончена! Ваш счет: ' + Math.floor(this.score));
     this.scene.restart();
 }
