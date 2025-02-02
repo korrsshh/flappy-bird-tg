@@ -78,10 +78,13 @@ function addPipe() {
 }
 
 function update() {
-    if (this.bird.y > config.height) {
+    if (this.bird.y >= config.height) { // Смерть при падении за экран вниз
         gameOver.call(this);
     }
-    
+    if (this.bird.y <= 0) { // Ограничение выхода за верхний край
+        this.bird.setVelocityY(0);
+        this.bird.y = 0;
+    }
     this.pipes.getChildren().forEach(pipe => {
         if (!pipe.passed && pipe.x < this.bird.x) {
             pipe.passed = true;
