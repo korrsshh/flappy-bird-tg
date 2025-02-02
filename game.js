@@ -18,7 +18,7 @@ const config = {
     parent: 'gameContainer',
     physics: {
         default: 'arcade',
-        arcade: { gravity: { y: 1200 }, debug: true } // Включаем debug для отладки коллизий
+        arcade: { gravity: { y: 1200 }, debug: false } // Отключаем debug, чтобы убрать хитбоксы
     },
     scene: { preload, create, update }
 };
@@ -44,7 +44,7 @@ function create() {
     
     this.input.on('pointerdown', () => this.bird.setVelocityY(-350));
     
-    this.pipes = this.physics.add.group();
+    this.pipes = this.physics.add.group({ allowGravity: false }); // Отключаем гравитацию для труб
     this.time.addEvent({ delay: 1500, callback: addPipe, callbackScope: this, loop: true });
     
     this.physics.add.collider(this.bird, this.pipes, gameOver, null, this);
@@ -61,22 +61,23 @@ function addPipe() {
         .setOrigin(0.5, 1)
         .setScale(0.3)
         .setFlipY(true)
-        .setImmovable(true);
+        .setImmovable(true)
+        .setVelocityX(-250);
     
     const bottomPipe = this.pipes.create(600, gap + pipeHeight / 2, 'pipe')
         .setOrigin(0.5, 0)
         .setScale(0.3)
-        .setImmovable(true);
-    
-    topPipe.setVelocityX(-250);
-    bottomPipe.setVelocityX(-250);
+        .setImmovable(true)
+        .setVelocityX(-250);
     
     topPipe.body.setSize(topPipe.width * 0.8, topPipe.height * 0.8);
     bottomPipe.body.setSize(bottomPipe.width * 0.8, bottomPipe.height * 0.8);
 }
 
 function update() {
-    if (this.bird.y > 900 || this.bird.y < 0) gameOver.call(this);
+    if (this.bird.y > 900 || this.bird.y < 0) {
+        gameOver.call(this);
+    }
 }
 
 function gameOver() {
