@@ -78,7 +78,7 @@ function addPipe() {
 }
 
 function update() {
-    if (this.bird.y >= config.height) { // Смерть при падении за экран вниз
+    if (this.bird.y >= config.height - 200) { // Смерть при падении за экран вниз
         gameOver.call(this);
     }
     if (this.bird.y <= 0) { // Ограничение выхода за верхний край
@@ -89,7 +89,7 @@ function update() {
         if (!pipe.passed && pipe.x < this.bird.x) {
             pipe.passed = true;
             this.score += 0.5; // Каждая пара труб даёт 1 очко (по 0.5 за каждую)
-            this.scoreText.setText('Счет: ' + this.bird.y + '  ' + config.height );
+            this.scoreText.setText('Счет: ' + Math.floor(this.score));
         }
     });
 }
