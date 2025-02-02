@@ -13,8 +13,8 @@ document.body.style.background = '#70c5ce';
 // Подключаем Phaser
 const config = {
     type: Phaser.AUTO,
-    width: 540, // Размер экрана
-    height: 810,
+    width: 600, // Увеличиваем ширину экрана
+    height: 900, // Увеличиваем высоту экрана
     parent: 'gameContainer',
     physics: {
         default: 'arcade',
@@ -34,12 +34,13 @@ function preload() {
 
 function create() {
     console.log("Игра запущена!");
-    this.cameras.main.scrollY = 50; // Опускаем камеру ниже
-    this.add.image(270, 405 + 50, 'background').setScale(0.6); // Смещаем фон вниз
+    this.cameras.main.setZoom(0.8); // Ещё сильнее отдаляем камеру
+    this.cameras.main.scrollY = 100; // Опускаем камеру ниже
+    this.add.image(300, 400, 'background').setScale(0.8); // Поднимаем фон выше и уменьшаем
     
-    this.bird = this.physics.add.sprite(100, 405, 'bird').setOrigin(0.5, 0.5).setScale(0.25);
+    this.bird = this.physics.add.sprite(100, 450, 'bird').setOrigin(0.5, 0.5).setScale(0.2);
     this.bird.setCollideWorldBounds(true);
-    this.bird.body.setSize(this.bird.width * 0.6, this.bird.height * 0.6); // Уменьшаем хитбокс птички
+    this.bird.body.setSize(this.bird.width * 0.6, this.bird.height * 0.6);
     
     this.input.on('pointerdown', () => this.bird.setVelocityY(-350));
     
@@ -53,30 +54,29 @@ function create() {
 }
 
 function addPipe() {
-    const gap = Phaser.Math.Between(250, 350);
+    const gap = Phaser.Math.Between(300, 400); // Увеличиваем разрыв между трубами
     const pipeHeight = 500;
     
-    const topPipe = this.pipes.create(540, gap - pipeHeight / 2, 'pipe')
+    const topPipe = this.pipes.create(600, gap - pipeHeight / 2 - 100, 'pipe') // Поднимаем верхнюю трубу выше
         .setOrigin(0.5, 1)
-        .setScale(0.35)
-        .setFlipY(true);
+        .setScale(0.3)
+        .setFlipY(true)
+        .setImmovable(true);
     
-    const bottomPipe = this.pipes.create(540, gap + pipeHeight / 2, 'pipe')
+    const bottomPipe = this.pipes.create(600, gap + pipeHeight / 2, 'pipe')
         .setOrigin(0.5, 0)
-        .setScale(0.35);
+        .setScale(0.3)
+        .setImmovable(true);
     
     topPipe.setVelocityX(-250);
     bottomPipe.setVelocityX(-250);
     
-    topPipe.body.immovable = true;
-    bottomPipe.body.immovable = true;
-    
-    topPipe.body.setSize(topPipe.width * 0.8, topPipe.height * 0.8); // Уменьшаем хитбокс труб
+    topPipe.body.setSize(topPipe.width * 0.8, topPipe.height * 0.8);
     bottomPipe.body.setSize(bottomPipe.width * 0.8, bottomPipe.height * 0.8);
 }
 
 function update() {
-    if (this.bird.y > 810 || this.bird.y < 0) gameOver.call(this);
+    if (this.bird.y > 900 || this.bird.y < 0) gameOver.call(this);
 }
 
 function gameOver() {
