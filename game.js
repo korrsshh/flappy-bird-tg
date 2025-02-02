@@ -13,12 +13,12 @@ document.body.style.background = '#70c5ce';
 // Подключаем Phaser
 const config = {
     type: Phaser.AUTO,
-    width: 540, // Ещё больше увеличиваем экран для лучшего обзора
+    width: 540, // Размер экрана
     height: 810,
     parent: 'gameContainer',
     physics: {
         default: 'arcade',
-        arcade: { gravity: { y: 1200 }, debug: false } // Увеличили гравитацию, чтобы птица не зависала
+        arcade: { gravity: { y: 1200 }, debug: true } // Включаем debug для отладки коллизий
     },
     scene: { preload, create, update }
 };
@@ -34,12 +34,14 @@ function preload() {
 
 function create() {
     console.log("Игра запущена!");
-    this.add.image(270, 405, 'background').setScale(0.6); // Подстраиваем фон под новый размер экрана
+    this.cameras.main.scrollY = 50; // Опускаем камеру ниже
+    this.add.image(270, 405 + 50, 'background').setScale(0.6); // Смещаем фон вниз
     
-    this.bird = this.physics.add.sprite(100, 405, 'bird').setOrigin(0.5, 0.5).setScale(0.25); // Ещё больше уменьшаем птицу
+    this.bird = this.physics.add.sprite(100, 405, 'bird').setOrigin(0.5, 0.5).setScale(0.25);
     this.bird.setCollideWorldBounds(true);
+    this.bird.body.setSize(this.bird.width * 0.6, this.bird.height * 0.6); // Уменьшаем хитбокс птички
     
-    this.input.on('pointerdown', () => this.bird.setVelocityY(-350)); // Увеличиваем импульс при прыжке
+    this.input.on('pointerdown', () => this.bird.setVelocityY(-350));
     
     this.pipes = this.physics.add.group();
     this.time.addEvent({ delay: 1500, callback: addPipe, callbackScope: this, loop: true });
@@ -51,12 +53,12 @@ function create() {
 }
 
 function addPipe() {
-    const gap = Phaser.Math.Between(250, 350); // Увеличиваем разрыв между трубами
-    const pipeHeight = 500; // Ещё больше корректируем высоту труб
+    const gap = Phaser.Math.Between(250, 350);
+    const pipeHeight = 500;
     
     const topPipe = this.pipes.create(540, gap - pipeHeight / 2, 'pipe')
         .setOrigin(0.5, 1)
-        .setScale(0.35) // Дополнительно уменьшаем трубы
+        .setScale(0.35)
         .setFlipY(true);
     
     const bottomPipe = this.pipes.create(540, gap + pipeHeight / 2, 'pipe')
@@ -68,6 +70,9 @@ function addPipe() {
     
     topPipe.body.immovable = true;
     bottomPipe.body.immovable = true;
+    
+    topPipe.body.setSize(topPipe.width * 0.8, topPipe.height * 0.8); // Уменьшаем хитбокс труб
+    bottomPipe.body.setSize(bottomPipe.width * 0.8, bottomPipe.height * 0.8);
 }
 
 function update() {
