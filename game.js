@@ -54,10 +54,10 @@ function create() {
 }
 
 function addPipe() {
-    const gap = Phaser.Math.Between(200, 350); // Смещаем разрыв вниз для баланса
+    const gap = Phaser.Math.Between(200, 400); // Смещаем разрыв вниз для баланса
     const pipeHeight = 550; // Делаем трубы чуть короче
     
-    const topPipe = this.pipes.create(600, gap - pipeHeight / 2 + 125, 'pipe') // Смещаем верхнюю трубу вниз
+    const topPipe = this.pipes.create(600, gap - pipeHeight / 2 + 150, 'pipe') // Смещаем верхнюю трубу вниз
         .setOrigin(0.5, 1)
         .setScale(0.3)
         .setFlipY(true)
