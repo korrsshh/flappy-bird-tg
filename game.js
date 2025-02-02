@@ -89,7 +89,7 @@ function update() {
         if (!pipe.passed && pipe.x < this.bird.x) {
             pipe.passed = true;
             this.score += 0.5; // Каждая пара труб даёт 1 очко (по 0.5 за каждую)
-            this.scoreText.setText('Счет: ' + Math.floor(this.score));
+            this.scoreText.setText('Счет: ' + this.bird.y + '  ' + config.height );
         }
     });
 }
