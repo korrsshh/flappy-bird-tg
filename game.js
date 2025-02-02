@@ -9,6 +9,14 @@ if (window.Telegram && window.Telegram.WebApp) {
 }
 
 document.body.style.background = '#70c5ce';
+document.body.style.margin = '0';
+document.body.style.overflow = 'hidden';
+
+document.getElementById('gameContainer').style.position = 'absolute';
+document.getElementById('gameContainer').style.top = '0';
+document.getElementById('gameContainer').style.left = '0';
+document.getElementById('gameContainer').style.width = '100vw';
+document.getElementById('gameContainer').style.height = '100vh';
 
 // Подключаем Phaser
 const config = {
